@@ -1,2 +1,3 @@
-# cursle
-wordle clone built in python and curses
+# Cursle
+
+cursle is a terminal-based wordle clone made in python and curses
