@@ -3,7 +3,6 @@
 import curses
 import argparse
 from re import search as res
-import random
 
 class globals:
     word = ""
@@ -54,10 +53,7 @@ class renderModeCurses:
                 elif res("[a-z:]", x.lower()) != None and x != "KEY_RESIZE":
                     globals.guess[0] += x
             except KeyboardInterrupt:
-                    curses.endwin()
-                    print("the word was {0}".format(globals.word))
-                    import sys
-                    sys.exit()
+                    end()
         
 
     def render(stdscr):
@@ -121,8 +117,9 @@ f.close
 if args.daily:
     import time
     import math
-    num = math.floor((time.time() - 1624060800) / 86400)
+    num = math.floor((time.time() - 1624060800) / 86400) + 3
 else:
+    import random
     num = random.randint(0, len(swords))
 
 globals.word = swords[num]
