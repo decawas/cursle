@@ -35,6 +35,9 @@ class renderModeCurses:
                     renderModeCurses.render(stdscr)
                 except:
                     pass
+                if globals.guesses[-1] != "":
+                    end()
+
                 x = str(stdscr.getkey())
             
                 if x == "\x0A" or x == "KEY_ENTER":
@@ -96,6 +99,18 @@ class renderModeCurses:
                 stdscr.addstr("{0}\n{1}\n{2}\n".format(a, b, c), curses.color_pair(1))
             else:
                 stdscr.addstr("┌─┐ ┌─┐ ┌─┐ ┌─┐ ┌─┐\n\n└─┘ └─┘ └─┘ └─┘ └─┘\n", curses.color_pair(1))
+            if globals.guesses[i] == globals.word:
+                end()
+
+def end():
+    curses.endwin()
+    print("the word was {0}".format(globals.word))
+    import sys
+    sys.exit()
+
+parser = argparse.ArgumentParser(description="Wordle")
+parser.add_argument("--daily", help="syncs with the real wordle on new york times", action="store_true")
+args = parser.parse_args()
 
 path = str("en")
 f = open(path, "r")
@@ -103,7 +118,12 @@ globals.words = f.read()
 swords = globals.words.split("\n")
 f.close
 
-num = random.randint(0, len(swords))
+if args.daily:
+    import time
+    import math
+    num = math.floor((time.time() - 1624060800) / 86400)
+else:
+    num = random.randint(0, len(swords))
 
 globals.word = swords[num]
 swords = ""
