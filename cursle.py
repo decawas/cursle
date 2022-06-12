@@ -40,7 +40,7 @@ class renderModeCurses:
                 x = str(stdscr.getkey())
             
                 if x == "\x0A" or x == "KEY_ENTER":
-                    if len(globals.guess[0]) != 5:
+                    if len(globals.guess[0]) != 5 or res(globals.guess[0] ,globals.words) == None:
                         pass
                     else:
                         globals.guesses[globals.guess[1]] = globals.guess[0].lower()
@@ -117,7 +117,7 @@ f.close
 if args.daily:
     import time
     import math
-    num = math.floor((time.time() - 1624060800) / 86400) + 3
+    num = math.floor((time.time() - 1624060800) / 86400) + 4
 else:
     import random
     num = random.randint(0, len(swords))
