@@ -8,8 +8,7 @@ class globals:
     word = ""
     words = ""
     guess = ["", 0]
-    guesses = ["", "", "", "", "", ""]
-
+    guesses = []
 
 class renderModeCurses:
     def main(stdscr):
@@ -35,7 +34,10 @@ class renderModeCurses:
                 except:
                     pass
                 if globals.guesses[-1] != "":
-                    end()
+                    curses.endwin()
+                    print("the word was {0}".format(globals.word))
+                    import sys
+                    sys.exit()
 
                 x = str(stdscr.getkey())
             
@@ -53,14 +55,17 @@ class renderModeCurses:
                 elif res("[a-z:]", x.lower()) != None and x != "KEY_RESIZE":
                     globals.guess[0] += x
             except KeyboardInterrupt:
-                    end()
+                curses.endwin()
+                print("the word was {0}".format(globals.word))
+                import sys
+                sys.exit()
         
 
     def render(stdscr):
         stdscr.bkgd(" ", curses.color_pair(1))
         stdscr.refresh()
         stdscr.clear()
-        for i in range(6):
+        for i in range(args.tries):
             if len(globals.guesses[i]) == 5:
                 a = ""
                 b = ""
@@ -95,20 +100,15 @@ class renderModeCurses:
                 stdscr.addstr("{0}\n{1}\n{2}\n".format(a, b, c), curses.color_pair(1))
             else:
                 stdscr.addstr("┌─┐ ┌─┐ ┌─┐ ┌─┐ ┌─┐\n\n└─┘ └─┘ └─┘ └─┘ └─┘\n", curses.color_pair(1))
-            if globals.guesses[i] == globals.word:
-                end()
-
-def end():
-    curses.endwin()
-    print("the word was {0}".format(globals.word))
-    import sys
-    sys.exit()
 
 parser = argparse.ArgumentParser(description="Wordle")
 parser.add_argument("--daily", help="syncs with the real wordle on new york times", action="store_true")
+parser.add_argument("--tries", help="number of tries", type=int, default=6)
 args = parser.parse_args()
 
-path = str("en")
+while len(globals.guesses) < args.tries: globals.guesses.append("")
+
+path = "en"
 f = open(path, "r")
 globals.words = f.read()
 swords = globals.words.split("\n")
@@ -123,7 +123,7 @@ else:
     num = random.randint(0, len(swords))
 
 globals.word = swords[num]
-swords = ""
+swords = None
 
 curses.wrapper(renderModeCurses.main)
 
