@@ -41,20 +41,11 @@ class renderModeCurses:
             elif len(globals.guess) >= 5: pass
             elif res("[a-z]", key) != None:
                 globals.guess += key
-            fi = open("a.txt", "a")
-            fi.write(globals.guess)
-            fi.write("\n")
-            fi.write(str(key))
-            fi.close()
         
     def render(stdscr):
         stdscr.bkgd(" ", curses.color_pair(1))
         stdscr.refresh()
         stdscr.clear()
-        fi = open("a.txt", "a")
-        fi.write(globals.guess)
-        fi.write("\n")
-        fi.close()
         i = 0
         for i in range(args.tries):
             try:
@@ -94,12 +85,12 @@ class renderModeCurses:
             pass
 
 parser = argparse.ArgumentParser(description="Wordle")
-parser.add_argument("--daily", help="syncs with the real wordle on new york times", action="store_true")
-parser.add_argument("--tries", help="number of tries", type=int, default=6)
+parser.add_argument("--daily", help="gives you the same word as on New York Times, based on GMT only", action="store_true")
+parser.add_argument("--tries", help="set the number of attempts you can make", type=int, default=6)
+parser.add_argument("--gamecode", help="lets you set the word based on an integer so you can send it to a friend without them knowing the word", type=int, default=-1)
 args = parser.parse_args()
 
-path = "en"
-f = open(path, "r")
+f = open("en", "r")
 globals.words = f.read()
 swords = globals.words.split("\n")
 f.close
@@ -108,12 +99,16 @@ if args.daily:
     import time
     import math
     num = math.floor((time.time() - 1624060800) / 86400) + 4
-else:
+elif args.gamecode == -1:
     import random
     num = random.randint(0, len(swords))
+else:
+    import math
+    num = math.floor((args.gamecode - 1624060800) / 86400) - 4
 
 globals.word = swords[num]
 swords = None
 print("the word was {0}".format(globals.word))
+print("the gamecoded is {0}".format(((num + 4) * 86400) + 1624060800))
 
 curses.wrapper(renderModeCurses.main)
