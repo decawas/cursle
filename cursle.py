@@ -87,10 +87,14 @@ class renderModeCurses:
 parser = argparse.ArgumentParser(description="Wordle")
 parser.add_argument("--daily", help="gives you the same word as on New York Times, based on GMT only", action="store_true")
 parser.add_argument("--tries", help="set the number of attempts you can make", type=int, default=6)
-parser.add_argument("--gamecode", help="lets you set the word based on an integer so you can send it to a friend without them knowing the word", type=int, default=-1)
+parser.add_argument("--gamecode", help="lets you set the word based on an integer so you can send it to a friend without them knowing the word", default=-1)
+parser.add_argument("--unfiltered", help="makes it use a much longer word list with words that you probably dont know")
 args = parser.parse_args()
 
-f = open("en", "r")
+if args.unfiltered:
+    f = open("enu", "r")
+else:
+    f = open("en", "r")
 globals.words = f.read()
 swords = globals.words.split("\n")
 f.close
@@ -98,17 +102,18 @@ f.close
 if args.daily:
     import time
     import math
-    num = math.floor((time.time() - 1624060800) / 86400) + 4
+    num = math.floor((time.time() - 1624060800) / 86400)
 elif args.gamecode == -1:
     import random
     num = random.randint(0, len(swords))
+    print("the gamecode is {0}".format((num * 86400) + 1624060800))
 else:
     import math
-    num = math.floor((args.gamecode - 1624060800) / 86400) - 4
+    num = math.floor((args.gamecode - 1624060800) / 86400)
 
 globals.word = swords[num]
 swords = None
 print("the word was {0}".format(globals.word))
-print("the gamecoded is {0}".format(((num + 4) * 86400) + 1624060800))
+
 
 curses.wrapper(renderModeCurses.main)
