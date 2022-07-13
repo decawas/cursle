@@ -87,11 +87,11 @@ class renderModeCurses:
 parser = argparse.ArgumentParser(description="Wordle")
 parser.add_argument("--daily", help="gives you the same word as on New York Times, based on GMT only", action="store_true")
 parser.add_argument("--tries", help="set the number of attempts you can make", type=int, default=6)
-parser.add_argument("--gamecode", help="lets you set the word based on an integer so you can send it to a friend without them knowing the word", default=-1)
-parser.add_argument("--unfiltered", help="makes it use a much longer word list with words that you probably dont know")
+parser.add_argument("--gamecode", help="lets you set the word based on an integer so you can send it to a friend without them knowing the word", type=int, default=-1)
+parser.add_argument("--unfiltered", help="makes it use a much longer word list with words that you probably dont know", action="store_true")
 args = parser.parse_args()
 
-if args.unfiltered:
+if args.unfiltered and not args.daily:
     f = open("enu", "r")
 else:
     f = open("en", "r")
@@ -102,7 +102,7 @@ f.close
 if args.daily:
     import time
     import math
-    num = math.floor((time.time() - 1624060800) / 86400)
+    num = math.floor((time.time() - 1624060800) / 86400) + 5
 elif args.gamecode == -1:
     import random
     num = random.randint(0, len(swords))
