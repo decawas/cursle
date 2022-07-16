@@ -12,16 +12,10 @@ class globals:
 
 class renderModeCurses:
     def main(stdscr):
-        try:
-            curses.init_pair(1, 7, 16) # none
-            curses.init_pair(2, 2, 16) # place
-            curses.init_pair(3, 3, 16) # letter 
-            curses.init_pair(4, 1, 16) # bad
-        except:
-            curses.init_pair(1, 7, 0) # none
-            curses.init_pair(2, 2, 0) # place
-            curses.init_pair(3, 3, 0) # letter 
-            curses.init_pair(4, 1, 0) # bad
+        curses.init_pair(1, 7, 0) # none
+        curses.init_pair(2, 2, 0) # place
+        curses.init_pair(3, 3, 0) # letter 
+        curses.init_pair(4, 1, 0) # bad
         
         curses.start_color()
         curses.curs_set(0)
@@ -39,7 +33,7 @@ class renderModeCurses:
                     globals.guess = ""
             elif key == "key_backspace": globals.guess = globals.guess[:-1]
             elif len(globals.guess) >= 5: pass
-            elif res("[a-z]", key) != None:
+            elif key != "key_resize" and res("[a-z]", key) != None:
                 globals.guess += key
         
     def render(stdscr):
