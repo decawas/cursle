@@ -3,8 +3,8 @@
 import math
 import curses
 import argparse
-from pdb import line_prefix
 from re import search as res
+
 
 class globals:
 	word = ""
@@ -12,6 +12,7 @@ class globals:
 	swords = ""
 	guess = ""
 	guesses = []
+
 
 def main(stdscr):
 	curses.init_pair(1, 7, 0)
@@ -32,30 +33,29 @@ def main(stdscr):
 		if key == "409":
 			_, x, y, _, _ = curses.getmouse()
 			if len(globals.guess) < 5 and y == 3 * args.tries + 1:
-				try: globals.guess += globals.swords7[x]
-				except: pass			
+				try: globals.guess += globals.swords[x]
+				except IndexError: pass
 			elif y == 3 * args.tries + 2:
-					if x < 5: 
-						if len(globals.guess) != 5 or res(globals.guess ,globals.words) == None: pass
-						else:
-							globals.guesses.append(globals.guess)
-							globals.guess = ""
-					elif x < 15: key = "263"
+				if x < 5:
+					if len(globals.guess) != 5 or res(globals.guess, globals.words) is None: pass
+					else:
+						globals.guesses.append(globals.guess)
+						globals.guess = ""
+				elif x < 15: key = "263"
 
 		if key == "\n":
-			if len(globals.guess) != 5 or res(globals.guess ,globals.words) == None: pass
+			if len(globals.guess) != 5 or res(globals.guess, globals.words) is None: pass
 			else:
 				globals.guesses.append(globals.guess)
 				globals.guess = ""
 		elif key == "263": globals.guess = globals.guess[:-1] 
-		elif len(globals.guess) != 5 and len(key) == 1 and res("[{0}]".format(globals.swords), key) != None:
-			globals.guess += key
+		elif len(globals.guess) != 5 and len(key) == 1 and res("[{0}]".format(globals.swords), key) != None: globals.guess += key
+
 
 def render(stdscr):
 	stdscr.bkgd(" ", curses.color_pair(1))
 	stdscr.refresh()
 	stdscr.clear()
-	i = 0
 	for i in range(args.tries):
 		try:
 			if len(globals.guesses[i]) == 5:
@@ -83,7 +83,7 @@ def render(stdscr):
 					a += "┌─┐ "
 					try:
 						b += " " + globals.guess[j].upper() + "  "
-					except:
+					except IndexError:
 						b += "	"
 					c += "└─┘ "
 				stdscr.addstr("{0}\n{1}\n{2}\n".format(a, b, c), curses.color_pair(1))
@@ -96,6 +96,7 @@ def render(stdscr):
 	stdscr.addstr(" BACKSPACE")
 	if globals.guesses:
 		pass
+
 
 parser = argparse.ArgumentParser(description="Wordle")
 parser.add_argument("--daily", help="gives you the same word as on New York Times, based on GMT only", action="store_true")
@@ -110,7 +111,7 @@ else:
 	f = open("lang/en", "r")
 globals.words = f.read()
 globals.swords = globals.words.split("\n")
-f.close
+f.close()
 
 if args.daily:
 	import time
