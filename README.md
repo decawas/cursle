@@ -28,7 +28,7 @@ __You can not enter any arguments if you use "python ./cursle.py"__
 
 Unfiltered English words list comes from: https://github.com/dwyl/english-words<br />
 Italian words list comes from: https://parolle.it/<br />
-German words list comes from: https://woertchen.sofacoach.de/<br />
+German words list comes from: https://woertchen.sofacoach.de/ and https://sourceforge.net/projects/germandict/<br />
 Spanish words list comes from: https://wordle-es.xavier.cc/<br />
 Swedish words list comes from: https://github.com/martinlindhe/wordlist_swedish<br />
 
