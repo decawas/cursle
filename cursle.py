@@ -32,10 +32,10 @@ def main(stdscr):
 
 		if key == "409":
 			_, x, y, _, _ = curses.getmouse()
-			if len(globals.guess) < 5 and y == 3 * args.tries + 1:
+			if len(globals.guess) < 5 and y == 4 * args.tries:
 				try: globals.guess += globals.swords[x]
 				except IndexError: pass
-			elif y == 3 * args.tries + 2:
+			elif y == 4 * args.tries + 1:
 				if x < 5:
 					if len(globals.guess) != 5 or res(globals.guess, globals.words) is None: pass
 					else:
@@ -74,6 +74,11 @@ def render(stdscr):
 					elif globals.word[j2] != globals.guesses[i][j2] and res(globals.guesses[i][j2], globals.word) != None: stdscr.addstr("└─┘ ", curses.color_pair(3))
 					elif globals.word[j2] != globals.guesses[i][j2] and res(globals.guesses[i][j2], globals.word) == None: stdscr.addstr("└─┘ ", curses.color_pair(4))
 				stdscr.addstr("\n")
+				for j3 in range(5):
+					if globals.word[j3] == globals.guesses[i][j3]: stdscr.addstr("YES ", curses.color_pair(2))
+					elif globals.word[j3] != globals.guesses[i][j3] and res(globals.guesses[i][j3], globals.word) != None: stdscr.addstr("MID ", curses.color_pair(3))
+					elif globals.word[j3] != globals.guesses[i][j3] and res(globals.guesses[i][j3], globals.word) == None: stdscr.addstr("BAD ", curses.color_pair(4))
+				stdscr.addstr("\n")
 		except:
 			if globals.guess != "" and len(globals.guesses) == i:
 				a = ""
@@ -86,10 +91,9 @@ def render(stdscr):
 					except IndexError:
 						b += "	"
 					c += "└─┘ "
-				stdscr.addstr("{0}\n{1}\n{2}\n".format(a, b, c), curses.color_pair(1))
+				stdscr.addstr("{0}\n{1}\n{2}\n\n".format(a, b, c), curses.color_pair(1))
 			else:
-				stdscr.addstr("┌─┐ ┌─┐ ┌─┐ ┌─┐ ┌─┐\n\n└─┘ └─┘ └─┘ └─┘ └─┘\n", curses.color_pair(1))
-	stdscr.addstr("\n")
+				stdscr.addstr("┌─┐ ┌─┐ ┌─┐ ┌─┐ ┌─┐\n\n└─┘ └─┘ └─┘ └─┘ └─┘\n\n", curses.color_pair(1))
 	for i in range(len(globals.swords)):
 		stdscr.addstr(str(globals.swords[i]).upper())
 	stdscr.addstr("\nENTER")
@@ -115,7 +119,7 @@ f.close()
 
 if args.daily:
 	import time
-	num = math.floor((time.time() - 1624060800) / 86400) + 9
+	num = math.floor((time.time() - 1624060800) / 86400) + 10
 elif args.gamecode == -1:
 	import random
 	num = random.randint(0, (len(globals.swords)) - 1)
