@@ -19,10 +19,10 @@ __You can not enter any arguments if you use "python ./cursle.py"__
 
 - en (English)
 - enu (English but unfiltered word list)
-- es (Spanish)
-- de (German)
-- it (Italian)
-- sv (Swedish)
+- es (Español / Spanish)
+- de (Deutsch / German)
+- it (Italiani / Italian)
+- sv (Svenska / Swedish)
 
 ## Credits:
 
@@ -34,4 +34,4 @@ Swedish words list comes from: https://github.com/martinlindhe/wordlist_swedish<
 
 ## --daily might be out of sync
 
-Sometimes --daily is a few words behind New York Times, this happens because New York Times occasionally skips a word which is not accounted for automatically in cursle, I have been doing my best to make a commit each time that New York Times skips a word but if I havent adjusted for a skip then you should edit cursle.py and increment the integer at the end of line 115
+Sometimes --daily is a few words behind New York Times, this happens because New York Times occasionally skips a word which is not accounted for automatically in cursle, I have been doing my best to make a commit each time that New York Times skips a word but if I havent adjusted for a skip then you should edit cursle.py and increment the integer at the end of line 122
