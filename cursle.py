@@ -5,14 +5,12 @@ import curses
 import argparse
 from re import search as res
 
-
 class globals:
 	word = ""
 	words = ""
 	swords = ""
 	guess = ""
 	guesses = []
-
 
 def main(stdscr):
 	curses.init_pair(1, 7, 0)
@@ -26,7 +24,10 @@ def main(stdscr):
 	curses.mousemask(1)
 
 	while True:
-		render(stdscr)
+		try:
+			render(stdscr)
+		except:
+			pass
 
 		key = str(stdscr.get_wch()).lower()
 
@@ -51,7 +52,6 @@ def main(stdscr):
 		elif key == "263": globals.guess = globals.guess[:-1] 
 		elif len(globals.guess) != 5 and len(key) == 1 and res("[{0}]".format(globals.swords), key) != None: globals.guess += key
 
-
 def render(stdscr):
 	stdscr.bkgd(" ", curses.color_pair(1))
 	stdscr.refresh()
@@ -60,47 +60,35 @@ def render(stdscr):
 		try:
 			if len(globals.guesses[i]) == 5:
 				for j0 in range(5):
-					if globals.word[j0] == globals.guesses[i][j0]: stdscr.addstr("┌─┐ ", curses.color_pair(2))
-					elif globals.word[j0] != globals.guesses[i][j0] and res(globals.guesses[i][j0], globals.word) != None: stdscr.addstr("┌─┐ ", curses.color_pair(3))
-					elif globals.word[j0] != globals.guesses[i][j0] and res(globals.guesses[i][j0], globals.word) == None: stdscr.addstr("┌─┐ ", curses.color_pair(4))
-				stdscr.addstr("\n")
-				for j1 in range(5):
-					if globals.word[j1] == globals.guesses[i][j1]: stdscr.addstr("│" + str(globals.guesses[i][j1]).upper() + "│ ", curses.color_pair(2))
-					elif globals.word[j1] != globals.guesses[i][j1] and res(globals.guesses[i][j1], globals.word) != None: stdscr.addstr("│" + str(globals.guesses[i][j1]).upper() + "│ ", curses.color_pair(3))
-					elif globals.word[j1] != globals.guesses[i][j1] and res(globals.guesses[i][j1], globals.word) == None: stdscr.addstr("│" + str(globals.guesses[i][j1]).upper() + "│ ", curses.color_pair(4))
-				stdscr.addstr("\n")
-				for j2 in range(5):
-					if globals.word[j2] == globals.guesses[i][j2]: stdscr.addstr("└─┘ ", curses.color_pair(2))
-					elif globals.word[j2] != globals.guesses[i][j2] and res(globals.guesses[i][j2], globals.word) != None: stdscr.addstr("└─┘ ", curses.color_pair(3))
-					elif globals.word[j2] != globals.guesses[i][j2] and res(globals.guesses[i][j2], globals.word) == None: stdscr.addstr("└─┘ ", curses.color_pair(4))
-				stdscr.addstr("\n")
-				for j3 in range(5):
-					if globals.word[j3] == globals.guesses[i][j3]: stdscr.addstr("YES ", curses.color_pair(2))
-					elif globals.word[j3] != globals.guesses[i][j3] and res(globals.guesses[i][j3], globals.word) != None: stdscr.addstr("MID ", curses.color_pair(3))
-					elif globals.word[j3] != globals.guesses[i][j3] and res(globals.guesses[i][j3], globals.word) == None: stdscr.addstr("BAD ", curses.color_pair(4))
-				stdscr.addstr("\n")
+					if globals.word[j] == globals.guesses[i][j]: 
+						stdscr.addstr(i * 4, j * 4,"┌─┐", curses.color_pair(2))
+						stdscr.addstr(i * 4 + 1, j * 4,"│" + str(globals.guesses[i][j]).upper() + "│", curses.color_pair(2))
+						stdscr.addstr(i * 4 + 2, j * 4,"└─┘", curses.color_pair(2))
+						stdscr.addstr(i * 4 + 3, j * 4,"YES", curses.color_pair(2))
+					elif globals.word[j] != globals.guesses[i][j] and res(globals.guesses[i][j0], globals.word) != None: 
+						stdscr.addstr(i * 4, j * 4,"┌─┐", curses.color_pair(3))
+						stdscr.addstr(i * 4 + 1, j * 4,"│" + str(globals.guesses[i][j]).upper() + "│", curses.color_pair(3))
+						stdscr.addstr(i * 4 + 2, j * 4,"└─┘", curses.color_pair(3))
+						stdscr.addstr(i * 4 + 3, j * 4,"MID", curses.color_pair(3))
+					elif globals.word[j] != globals.guesses[i][j] and res(globals.guesses[i][j0], globals.word) == None: 
+						stdscr.addstr(i * 4, j * 4,"┌─┐", curses.color_pair(4))
+						stdscr.addstr(i * 4 + 1, j * 4,"│" + str(globals.guesses[i][j]).upper() + "│", curses.color_pair(4))
+						stdscr.addstr(i * 4 + 2, j * 4,"└─┘", curses.color_pair(4))
+						stdscr.addstr(i * 4 + 3, j * 4,"BAD", curses.color_pair(4))
 		except:
 			if globals.guess != "" and len(globals.guesses) == i:
-				a = ""
-				b = ""
-				c = ""
 				for j in range(5):
-					a += "┌─┐ "
+					stdscr.addstr(i * 4, j * 4, "┌─┐")
 					try:
-						b += " " + globals.guess[j].upper() + "  "
+						stdscr.addstr(i * 4 + 1, j * 4 + 1, globals.guess[j].upper())
 					except IndexError:
-						b += "	"
-					c += "└─┘ "
-				stdscr.addstr("{0}\n{1}\n{2}\n\n".format(a, b, c), curses.color_pair(1))
+						pass
+					stdscr.addstr(i * 4 + 2, j * 4, "└─┘")
 			else:
-				stdscr.addstr("┌─┐ ┌─┐ ┌─┐ ┌─┐ ┌─┐\n\n└─┘ └─┘ └─┘ └─┘ └─┘\n\n", curses.color_pair(1))
-	for i in range(len(globals.swords)):
-		stdscr.addstr(str(globals.swords[i]).upper())
-	stdscr.addstr("\nENTER")
-	stdscr.addstr(" BACKSPACE")
-	if globals.guesses:
-		pass
-
+				stdscr.addstr(i * 4, 0, "┌─┐ ┌─┐ ┌─┐ ┌─┐ ┌─┐\n\n└─┘ └─┘ └─┘ └─┘ └─┘", curses.color_pair(1))
+	stdscr.addstr(4 * args.tries, 0, str(globals.swords).upper())
+	stdscr.addstr(4 * args.tries + 1, 0, "ENTER")
+	stdscr.addstr(4 * args.tries + 1, 6, "BACKSPACE")
 
 parser = argparse.ArgumentParser(description="Wordle")
 parser.add_argument("--daily", help="gives you the same word as on New York Times, based on GMT only", action="store_true")
