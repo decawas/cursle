@@ -59,23 +59,23 @@ def render(stdscr):
 	for i in range(args.tries):
 		try:
 			if len(globals.guesses[i]) == 5:
-				for j0 in range(5):
+				for j in range(5):
 					if globals.word[j] == globals.guesses[i][j]: 
 						stdscr.addstr(i * 4, j * 4,"┌─┐", curses.color_pair(2))
 						stdscr.addstr(i * 4 + 1, j * 4,"│" + str(globals.guesses[i][j]).upper() + "│", curses.color_pair(2))
 						stdscr.addstr(i * 4 + 2, j * 4,"└─┘", curses.color_pair(2))
 						stdscr.addstr(i * 4 + 3, j * 4,"YES", curses.color_pair(2))
-					elif globals.word[j] != globals.guesses[i][j] and res(globals.guesses[i][j0], globals.word) != None: 
+					elif globals.word[j] != globals.guesses[i][j] and res(globals.guesses[i][j], globals.word) != None: 
 						stdscr.addstr(i * 4, j * 4,"┌─┐", curses.color_pair(3))
 						stdscr.addstr(i * 4 + 1, j * 4,"│" + str(globals.guesses[i][j]).upper() + "│", curses.color_pair(3))
 						stdscr.addstr(i * 4 + 2, j * 4,"└─┘", curses.color_pair(3))
 						stdscr.addstr(i * 4 + 3, j * 4,"MID", curses.color_pair(3))
-					elif globals.word[j] != globals.guesses[i][j] and res(globals.guesses[i][j0], globals.word) == None: 
+					elif globals.word[j] != globals.guesses[i][j] and res(globals.guesses[i][j], globals.word) == None: 
 						stdscr.addstr(i * 4, j * 4,"┌─┐", curses.color_pair(4))
 						stdscr.addstr(i * 4 + 1, j * 4,"│" + str(globals.guesses[i][j]).upper() + "│", curses.color_pair(4))
 						stdscr.addstr(i * 4 + 2, j * 4,"└─┘", curses.color_pair(4))
 						stdscr.addstr(i * 4 + 3, j * 4,"BAD", curses.color_pair(4))
-		except:
+		except IndexError:
 			if globals.guess != "" and len(globals.guesses) == i:
 				for j in range(5):
 					stdscr.addstr(i * 4, j * 4, "┌─┐")
