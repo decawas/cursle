@@ -2,6 +2,10 @@
 
 cursle is a terminal-based wordle clone made in python and curses which you can play as many times as you like, challenge your friends by sending them a gamecode or sync with the wordle on New York Times
 
+## Deprication:
+
+Cursle is finished. However, i will continue to add languages for a while as well as correct for whenever New York Times skips a word
+
 ## To run:
 
 Clone the repository with "git clone https://github.com/decawas/cursle" or you can Download ZIP<br />
@@ -24,6 +28,25 @@ __You can not enter any arguments if you use "python ./cursle.py"__
 - fr (français / french)
 - it (Italiani / Italian)
 - sv (Svenska / Swedish)
+
+## Future languages:
+
+- ar (عربي / Arabic)
+- bn (বাংলা / Bengali)
+- br (brezhoneg / Breton)
+- ca (català / Catalan)
+- cy (Cymraeg / Welsh)
+- fy (Frysk / Frisian)
+- ga (Gaeilge / Irish)
+- gd (Gàidhlig / Scottish)
+- gl (Galego / Galician)
+- gr (Ελληνικά / Greek)
+- hi (हिन्दी / Hindi)
+- kw (Kernowek / Cornish)
+- pt (Português / Portuguese)
+- ru (Русский / Russian)
+- tr (Türk / Turkish)
+- uk (українська / Ukrainian)
 
 ## Credits:
 
