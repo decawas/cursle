@@ -35,7 +35,7 @@ def main(stdscr):
 				try: globals.guess += globals.alphab[x]
 				except IndexError: pass
 			elif y == 4 * args.tries + 1:
-				if x < 5 and res(globals.guess, globals.words) != None:
+				if x < 5 and res(f"\n{globals.guess}\n", globals.words) != None:
 						globals.guesses.append(globals.guess)
 						globals.guess = ""
 				elif x < 15: key = "263"
@@ -44,7 +44,7 @@ def main(stdscr):
 			curses.endwin()
 			import sys
 			sys.exit()
-		elif key == "\n" and res(globals.guess, globals.words) != None:
+		elif key == "\n" and res(f"\n{globals.guess}\n", globals.words) != None:
 				globals.guesses.append(globals.guess)
 				globals.guess = ""
 		elif key == "263": globals.guess = globals.guess[:-1] 
