@@ -2,10 +2,6 @@
 
 cursle is a terminal-based wordle clone made in python and curses which you can play as many times as you like, challenge your friends by sending them a gamecode or sync with the wordle on New York Times
 
-## Deprication:
-
-Cursle is finished. However, i will continue to add languages for a while as well as correct for whenever New York Times skips a word
-
 ## To run:
 
 Clone the repository with "git clone https://github.com/decawas/cursle" or you can Download ZIP<br />
@@ -27,11 +23,12 @@ __You can not enter any arguments if you use "python ./cursle.py"__
 - de (Deutsch / German)
 - fr (français / french)
 - it (Italiani / Italian)
+- ru (Русский / Russian)
 - sv (Svenska / Swedish)
+- uk (українська / Ukrainian)
 
 ## Future languages:
 
-- ar (عربي / Arabic)
 - bn (বাংলা / Bengali)
 - br (brezhoneg / Breton)
 - ca (català / Catalan)
@@ -44,18 +41,20 @@ __You can not enter any arguments if you use "python ./cursle.py"__
 - hi (हिन्दी / Hindi)
 - kw (Kernowek / Cornish)
 - pt (Português / Portuguese)
-- ru (Русский / Russian)
 - tr (Türk / Turkish)
-- uk (українська / Ukrainian)
+
+### Custom Word lists:
+    
+    to add a custom word list put the file into the lang folder and to use it write the file name as the input for --lang
 
 ## Credits:
 
-Unfiltered English words list comes from: https://github.com/dwyl/english-words<br />
-Italian words list comes from: https://parolle.it/<br />
-french words list comes from: https://github.com/hbenbel/French-Dictionary<br />
-German words list comes from: https://woertchen.sofacoach.de/ and https://sourceforge.net/projects/germandict/<br />
-Spanish words list comes from: https://wordle-es.xavier.cc/<br />
-Swedish words list comes from: https://github.com/martinlindhe/wordlist_swedish<br />
+[Unfiltered English words list](https://github.com/dwyl/english-words)<br />
+[Italian words list](https://parolle.it/)<br />
+[french words list](https://github.com/hbenbel/French-Dictionary)<br />
+[German words list](https://woertchen.sofacoach.de/) and [here too](https://sourceforge.net/projects/germandict/)<br />
+[Spanish words list](https://wordle-es.xavier.cc/)<br />
+[Swedish words list](https://github.com/martinlindhe/wordlist_swedish)<br />
 
 ## --daily might be out of sync
 
