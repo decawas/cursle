@@ -25,9 +25,7 @@ __You can not enter any arguments if you use "python ./cursle.py"__
 - de (Deutsch / German)
 - fr (français / french)
 - it (Italiani / Italian)
-- ru (Русский / Russian)
 - sv (Svenska / Swedish)
-- uk (українська / Ukrainian)
 
 ### Future languages:
 
