@@ -45,7 +45,7 @@ __You can not enter any arguments if you use "python ./cursle.py"__
 
 ### Custom Word lists:
     
-    to add a custom word list put the file into the lang folder and to use it write the file name as the input for --lang
+to add a custom word list put the file into the lang folder and to use it write the file name as the input for --lang
 
 ## Credits:
 
