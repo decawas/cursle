@@ -17,45 +17,43 @@ __You can not enter any arguments if you use "python ./cursle.py"__
 
 ## Languages:
 
+all word lists in /lang which end in "_old" are an older and much smaller version of that word list
+
 ### Current languages:
 
-- en (English)
-- enu (English but unfiltered word list)
-- es (Español / Spanish)
-- de (Deutsch / German)
-- fr (français / french)
-- it (Italiani / Italian)
-- sv (Svenska / Swedish)
+- cy (Cymraeg / Welsh)
+- de (Deutsch / German) [old source](https://woertchen.sofacoach.de/) [other old source](https://sourceforge.net/projects/germandict/)
+- en (English) [old source](https://github.com/dwyl/english-words)
+- en_times (The list on New York Times) [source](https://www.nytimes.com/games/wordle/index.html)
+- es (Español / Spanish) [old source](https://wordle-es.xavier.cc/)
+- fr (français / french) [old source](https://github.com/hbenbel/French-Dictionary)
+- fy (Frysk / Frisian)  
+- it (Italiani / Italian) [old source](https://parolle.it/)
+- sv (Svenska / Swedish) [old source](https://github.com/martinlindhe/wordlist_swedish)
+
+all new word lists come from [this source](https://fasttext.cc/docs/en/crawl-vectors.html)
 
 ### Future languages:
 
 - bn (বাংলা / Bengali)
 - br (brezhoneg / Breton)
 - ca (català / Catalan)
-- cy (Cymraeg / Welsh)
-- fy (Frysk / Frisian)
 - ga (Gaeilge / Irish)
 - gd (Gàidhlig / Scottish)
 - gl (Galego / Galician)
 - gr (Ελληνικά / Greek)
+- gv (Gaelg / Manx)
 - hi (हिन्दी / Hindi)
 - kw (Kernowek / Cornish)
 - pt (Português / Portuguese)
+- ru (Русский / Russian)
 - tr (Türk / Turkish)
+- uk (українська / Ukrainian)
 
 ### Custom Word lists:
     
 to add a custom word list put the file into the lang folder and to use it write the file name as the input for --lang
 
-## Credits:
-
-[Unfiltered English words list](https://github.com/dwyl/english-words)<br />
-[Italian words list](https://parolle.it/)<br />
-[french words list](https://github.com/hbenbel/French-Dictionary)<br />
-[German words list](https://woertchen.sofacoach.de/) and [here too](https://sourceforge.net/projects/germandict/)<br />
-[Spanish words list](https://wordle-es.xavier.cc/)<br />
-[Swedish words list](https://github.com/martinlindhe/wordlist_swedish)<br />
-
 ## --daily might be out of sync
 
-Sometimes --daily is a few words behind New York Times, this happens because New York Times occasionally skips a word which is not accounted for automatically in cursle, I have been doing my best to make a commit each time that New York Times skips a word but if I havent adjusted for a skip then you should edit cursle.py and increment the integer at the end of line 104
+Sometimes --daily is a few words behind New York Times, this happens because New York Times occasionally skips a word which is not accounted for automatically in cursle, I have been doing my best to make a commit each time that New York Times skips a word but if I havent adjusted for a skip then you should edit cursle.py and increment the integer at the end of line 95
