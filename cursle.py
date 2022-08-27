@@ -86,7 +86,7 @@ if args.daily:
 	with open(f"lang/en_times", "r") as f:
 		words = f.read()
 	import time
-	num = math.floor((time.time() - 1624060800) / 86400) + 11
+	num = math.floor((time.time() - 1624060800) / 86400) + 13
 else:
 	with open(f"lang/{args.lang}", "r") as f:
 		words = f.read()
