@@ -10,7 +10,6 @@ def main(stdscr):
 	curses.init_pair(1, 7, 0)
 	curses.init_pair(2, 2, 0)
 	curses.init_pair(3, 3, 0) 
-	curses.init_pair(4, 1, 0)
 
 	curses.start_color()
 	curses.curs_set(0)
@@ -25,13 +24,11 @@ def main(stdscr):
 
 		if key == "409":
 			_, x, y, _, _ = curses.getmouse()	
-			if len(guess) < 5 and y == 4 * args.tries:
+			if len(guess) < 5 and y == 4 * args.tries + 1:
 				try: guess += alphab[x]
 				except IndexError: pass
-			elif y == 4 * args.tries + 1:
-				if x < 5 and res(f"\n{guess}\n", words) != None:
-						guesses.append(guess)
-						guess = ""
+			elif y == 4 * args.tries:
+				if x < 5: key = "\n"
 				elif x < 15: key = "263"
 		
 		if key == "1":
@@ -58,7 +55,7 @@ def render(stdscr):
 						colour = 3
 						stdscr.addstr(i * 4 + 3, j * 4, "MID", curses.color_pair(colour))
 					elif word[j] != guesses[i][j] and res(guesses[i][j], word) == None:
-						colour = 4
+						colour = 1
 						stdscr.addstr(i * 4 + 3, j * 4, "BAD", curses.color_pair(colour))
 					stdscr.addstr(i * 4, j * 4, "┌─┐", curses.color_pair(colour))
 					stdscr.addstr(i * 4 + 1, j * 4, f"│{guesses[i][j].upper()}│", curses.color_pair(colour))
@@ -71,9 +68,9 @@ def render(stdscr):
 					except: pass
 					stdscr.addstr(i * 4 + 2, j * 4, "└─┘")
 			else: stdscr.addstr(i * 4, 0, "┌─┐ ┌─┐ ┌─┐ ┌─┐ ┌─┐\n\n└─┘ └─┘ └─┘ └─┘ └─┘")
-	stdscr.addstr(4 * args.tries, 0, alphab.upper())
-	stdscr.addstr(4 * args.tries + 1, 0, "ENTER")
-	stdscr.addstr(4 * args.tries + 1, 6, "BACKSPACE")
+	stdscr.addstr(4 * args.tries, 0, "ENTER BACKSPACE")
+	stdscr.addstr(4 * args.tries + 1, 0, alphab.upper())
+	
 
 parser = argparse.ArgumentParser(description="Cursle")
 parser.add_argument("--daily", help="gives you the same word as on New York Times, based on GMT only", action="store_true")
@@ -85,19 +82,19 @@ args = parser.parse_args()
 guess = ""
 guesses = []
 
-if args.daily: f = open("lang/en_times", "r")
-else: f = open(f"lang/{args.lang}", "r")
-words = f.read()
-f.close()
-
-if args.daily:
+if args.daily: 
+	with open(f"lang/en_times", "r") as f:
+		words = f.read()
 	import time
 	num = math.floor((time.time() - 1624060800) / 86400) + 11
-elif args.gamecode == -1:
-	import random
-	num = random.randint(0, (len(words.split("\n"))) - 1)
-	print(f"the gamecode is {(num * 86400) + 1624060800}")
-else: num = math.floor((args.gamecode - 1624060800) / 86400)
+else:
+	with open(f"lang/{args.lang}", "r") as f:
+		words = f.read()
+	if args.gamecode == -1:
+		import random
+		num = random.randint(0, (len(words.split("\n"))) - 1)
+		print(f"the gamecode is {(num * 86400) + 1624060800}")
+	else: num = math.floor((args.gamecode - 1624060800) / 86400)
 
 word = words.split("\n")[num]
 print(f"the word was {word}")
