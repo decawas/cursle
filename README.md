@@ -17,20 +17,33 @@ __You can not enter any arguments if you use "python ./cursle.py"__
 
 ## Languages:
 
+- ar (العربية / Arabic)
 - br (Brezhoneg / Breton)
 - ca (Català / Catalan)
 - cy (Cymraeg / Welsh)
+- da (Dansk / Danish)
 - de (Deutsch / German) [old source](https://woertchen.sofacoach.de/) [other old source](https://sourceforge.net/projects/germandict/)
 - el (Ελληνικά / Greek)
 - en (English) [old source](https://github.com/dwyl/english-words)
 - en_times (The list on New York Times) [source](https://www.nytimes.com/games/wordle/index.html)
+- eo (Esperanto)
 - es (Español / Spanish)
-- gl (Galego / Galician)
+- eu (Euskara / Basque)
+- fi (Suomi / Finnish)
+- fo (Føroyskt / Faroese)
 - fr (français / french) [old source](https://github.com/hbenbel/French-Dictionary)
 - fy (Frysk / Frisian)
+- ga (Gaeilge / Galician)
+- gd (Gàidhlig / Galician)
+- gl (Galego / Galician)
+- he (עִבְרִית / Hebrew)
+- hi (हिन्दी / hindi)
+- hu (Magyar / Hungarian)
+- is (Íslenska / Islandic)
 - it (italiani / italian)
 - kw (Kernowek / Cornish)
 - nl (Nederlands / Dutch)
+- no (Norsk / Norweigan)
 - pl (Polski / Polish)
 - pt (Português / Portuguese)
 - ru (Русский / Russian)
@@ -44,8 +57,10 @@ all word lists in /lang which end in "_old" are an older and much smaller versio
 
 ### Custom Word lists:
     
-to add a custom word list put the file into the lang folder and to use it write the file name as the input for --lang
+create a custom word list and put it in ./lang/<br />
+then create an entry in lang.json detailing the writingsystem and direction, the key for the entry must match the name of the file in ./lang/ <br/>
+then use the name of the file in ./lang/ as the input for the --lang argument
 
 ## --daily might be out of sync
 
-Sometimes --daily is a few words behind New York Times, this happens because New York Times occasionally skips a word which is not accounted for automatically in cursle, I have been doing my best to make a commit each time that New York Times skips a word but if I havent adjusted for a skip then you should edit cursle.py and increment the integer at the end of line 89
+Sometimes --daily is a few words behind New York Times, this happens because New York Times occasionally skips a word which is not accounted for automatically in cursle, I have been doing my best to make a commit each time that New York Times skips a word but if I havent adjusted for a skip then you should edit cursle.py and increment the integer at the end of line 94
