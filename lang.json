@@ -1,0 +1,43 @@
+{
+    "languages": [
+        {
+            "ar": {"writingsystem": "خحجثتباصشسزرذدقفغعظطضيوهنملك", "direction": "r"},
+            "br": {"writingsystem": "abcdefghijklmnoprstuvwyz", "direction": "l"},
+            "ca": {"writingsystem": "aàbcçdeèéfghiíïjklmnoòópqrstuúüvwxyz", "direction": "l"},
+            "cy": {"writingsystem": "abcdefghijlmnoprstuwy", "direction": "l"},
+            "da": {"writingsystem": "abcdefghijklmnopqrstuvwxyzæøå", "direction": "l"},
+            "de": {"writingsystem": "abcdefghijklmnopqrstuvwxyzäöüß", "direction": "l"},
+            "de_old": {"writingsystem": "abcdefghijklmnopqrstuvwxyzäöüß", "direction": "l"},
+            "el": {"writingsystem": "αβΓγδεζηθικλμνξοπρστυφχψω", "direction": "l"},
+            "en": {"writingsystem": "abcdefghijklmnopqrstuvwxyz", "direction": "l"},
+            "en_times": {"writingsystem": "abcdefghijklmnopqrstuvwxyz", "direction": "l"},
+            "en_old": {"writingsystem": "abcdefghijklmnopqrstuvwxyz", "direction": "l"},
+            "eo": {"writingsystem": "abcĉdefgĝhĥijĵklmnoprsŝtuŭvz", "direction": "l"},
+            "es": {"writingsystem": "abcdefghijklmnñopqrstuvwxyz", "direction": "l"},
+            "eu": {"writingsystem": "abcdefghijklmnñopqrstuvwxyz", "direction": "l"},
+            "fi": {"writingsystem": "abcdefghijklmnopqrstuvwxyzåäöšž", "direction": "l"},
+            "fo": {"writingsystem": "aábdðefghiíjklmnoóprstuúvyýæø", "direction": "l"},
+            "fr": {"writingsystem": "aàâæbcçdeéèêëfghiîïjklmnoôœpqestuùûüvwxyÿz", "direction": "l"},
+            "fr_old": {"writingsystem": "aàâæbcçdeéèêëfghiîïjklmnoôœpqestuùûüvwxyÿz", "direction": "l"},
+            "fy": {"writingsystem": "aâbcdeêéfghijklmnoôpqrstuûúvwxyz", "direction": "l"},
+            "ga": {"writingsystem": "abcdefghilmnoprstu", "direction": "l"},
+            "gd": {"writingsystem": "abcdefghilmnoprstu", "direction": "l"},
+            "gl": {"writingsystem": "abcdefghilmnñopqrstuvxz", "direction": "l"},
+            "he": {"writingsystem": "ץבגגהvזחטיכךלמםנןסעפףצץקרשת", "direction": "r"},
+            "hi": {"writingsystem": "कखगघङचछजझञटठडढणतथदधनपफबभमयरलवशषसहक्षत्रञअआइईउऊएऐओऔअंअःऋॠािीुूृॄॅॆेैॉॊोौ", "direction": "l"},
+            "hu": {"writingsystem": "aábcdeéfghiíjklmnoóöőpqrstuúüűvwxyz", "direction": "l"},
+            "is": {"writingsystem": "aábdðeéfghiíjklmnoóprstuúvxyýþæö", "direction": "l"},
+            "it": {"writingsystem": "abcdefghilmnopqrstuvz", "direction": "l"},
+            "kw": {"writingsystem": "abcdefghijklmnopqrstuvwxyz", "direction": "l"},
+            "nl": {"writingsystem": "abcdefghijklmnopqrstuvwxyz", "direction": "l"},
+            "no": {"writingsystem": "abcdefghijklmnopqrstuvwxyzæøå", "direction": "l"},
+            "pl": {"writingsystem": "aa̧bcćdeȩfghijklłmnńoóprsśtuvwxyzźż", "direction": "l"},
+            "pt": {"writingsystem": "aáâãàbcçdeéêfghiíjklmnoóôõpqrstuúvwxyz", "direction": "l"},
+            "ru": {"writingsystem": "абвгдеёжзийклмнопрстуфхцчшщъыьэюя", "direction": "l"},
+            "sv": {"writingsystem": "abcdefghijklmnopqrstuvwxyzéåäö", "direction": "l"},
+            "sv_old": {"writingsystem": "abcdefghijklmnopqrstuvwxyzéåäö", "direction": "l"},
+            "tr": {"writingsystem": "abcçdefghıijklmnoöprsştuüvyz", "direction": "l"},
+            "uk": {"writingsystem": "абвгґдеєжзиіїйклмнопрстуфхцчшщьюя", "direction": "l"}
+        }
+    ]
+}
