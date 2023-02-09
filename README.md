@@ -28,6 +28,7 @@ __You can not enter any arguments if you use "python ./cursle.py"__
 - en_times (The list on New York Times) [source](https://www.nytimes.com/games/wordle/index.html)
 - eo (Esperanto)
 - es (Español / Spanish)
+- et (eesti keel / Estonian)
 - eu (Euskara / Basque)
 - fi (Suomi / Finnish)
 - fo (Føroyskt / Faroese)
@@ -42,6 +43,9 @@ __You can not enter any arguments if you use "python ./cursle.py"__
 - is (Íslenska / Islandic)
 - it (italiani / italian)
 - kw (Kernowek / Cornish)
+- la (Latin)
+- lt (lietuvių / Lithuanian)
+- lv (latviski / Lativan)
 - nl (Nederlands / Dutch)
 - no (Norsk / Norweigan)
 - pl (Polski / Polish)
@@ -63,4 +67,4 @@ then use the name of the file in ./lang/ as the input for the --lang argument
 
 ## --daily might be out of sync
 
-Sometimes --daily is a few words behind New York Times, this happens because New York Times occasionally skips a word which is not accounted for automatically in cursle, I have been doing my best to make a commit each time that New York Times skips a word but if I havent adjusted for a skip then you should edit cursle.py and increment the integer at the end of line 94
+Sometimes --daily is a few words behind New York Times, this happens because New York Times occasionally skips a word which is not accounted for automatically in cursle, If this is the case, increase the offset in lang.json
