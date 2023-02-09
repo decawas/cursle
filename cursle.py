@@ -24,7 +24,8 @@ def main(stdscr):
 		key = str(stdscr.get_wch())
 
 		if key == "409":
-			_, x, y, _, _ = curses.getmouse()	
+			try: _, x, y, _, _ = curses.getmouse()
+			except: x, y = 0, 0
 			if len(guess) < 5 and y == 3 * args.tries + 1:
 				try: guess += alphab[x - math.floor(stdscr.getmaxyx()[1] / 2) - math.floor(len(alphab) / 2)]
 				except IndexError: pass
@@ -52,22 +53,22 @@ def render(stdscr):
 				for j in range(5):
 					if word[j] == guesses[i][j]:
 						colour = 2
-						stdscr.addstr(i * 3 + 2, abs(j * 4) + mx - 9, "╰v╯", curses.color_pair(colour))
+						stdscr.addstr(i * 3 + 2, j * 4 + mx - 9, "╰v╯", curses.color_pair(colour))
 					elif word[j] != guesses[i][j] and res(guesses[i][j], word) != None:
 						colour = 3
-						stdscr.addstr(i * 3 + 2, abs(j * 4) + mx - 9, "╰-╯", curses.color_pair(colour))
+						stdscr.addstr(i * 3 + 2, j * 4 + mx - 9, "╰-╯", curses.color_pair(colour))
 					elif word[j] != guesses[i][j] and res(guesses[i][j], word) == None:
 						colour = 1
-						stdscr.addstr(i * 3 + 2, abs(j * 4) + mx - 9, "╰x╯", curses.color_pair(colour))
-					stdscr.addstr(i * 3, abs(j * 4) + mx - 9, "╭─╮", curses.color_pair(colour))
+						stdscr.addstr(i * 3 + 2, j * 4 + mx - 9, "╰x╯", curses.color_pair(colour))
+					stdscr.addstr(i * 3, j * 4 + mx - 9, "╭─╮", curses.color_pair(colour))
 					stdscr.addstr(i * 3 + 1, abs(j * 4 - o) + mx - 9, f"│{guesses[i][j].upper()}│", curses.color_pair(colour))
 		except IndexError:
 			if guess != "" and len(guesses) == i:
 				for j in range(5):
-					stdscr.addstr(i * 3, abs(j * 4) + mx - 9, "╭─╮")
+					stdscr.addstr(i * 3, j * 4 + mx - 9, "╭─╮")
 					try: stdscr.addstr(i * 3 + 1, abs(j * 4 - o) + mx - 8, guess[j].upper())
 					except: pass
-					stdscr.addstr(i * 3 + 2, abs(j * 4) + mx - 9, "╰─╯")
+					stdscr.addstr(i * 3 + 2, j * 4 + mx - 9, "╰─╯")
 			else: 
 				stdscr.addstr(i * 3, mx - 9, "╭─╮ ╭─╮ ╭─╮ ╭─╮ ╭─╮")
 				stdscr.addstr(i * 3 + 2, mx - 9, "╰─╯ ╰─╯ ╰─╯ ╰─╯ ╰─╯")
@@ -91,7 +92,8 @@ if args.daily:
 	with open(f"lang/en_times", "r") as f:
 		words = f.read()
 	import time
-	num = math.floor((time.time() - 1624060800) / 86400) + 14
+	num = math.floor((time.time() - 1624060800) / 86400) + langdict["languages"][0]["en_times"]["offset"]
+	args.lang = "en_times"
 else:
 	with open(f"lang/{args.lang}", "r") as f:
 		words = f.read()
