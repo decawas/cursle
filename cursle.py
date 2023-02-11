@@ -86,22 +86,21 @@ guess = ""
 guesses = []
 
 with open ("lang.json", "r") as langdict:
-	langdict = json.loads(langdict.read())["languages"][0][f"{args.lang[:2]}"]
-
-if args.daily: 
-	with open(f"lang/en_times", "r") as f:
-		words = f.read()
-	import time
-	num = math.floor((time.time() - 1624060800) / 86400) + langdict["languages"][0]["en"]["offset"]
-	args.lang = ["languages"][0]["en"]
-else:
-	with open(f"lang/{args.lang}", "r") as f:
-		words = f.read()
-	if args.gamecode == -1:
-		import random
-		num = random.randint(0, (len(words.split("\n"))) - 1)
-		print(f"the gamecode is {(num * 86400) + 1624060800}")
-	else: num = math.floor((args.gamecode - 1624060800) / 86400)
+	if args.daily: 
+		langdict = json.loads(langdict.read())["languages"][0][f"en"]
+		with open(f"lang/en_times", "r") as f:
+			words = f.read()
+		import time
+		num = math.floor((time.time() - 1624060800) / 86400) + langdict["offset"]
+	else:
+		langdict = json.loads(langdict.read())["languages"][0][f"{args.lang[:2]}"]
+		with open(f"lang/{args.lang}", "r") as f:
+			words = f.read()
+		if args.gamecode == -1:
+			import random
+			num = random.randint(0, (len(words.split("\n"))) - 1)
+			print(f"the gamecode is {(num * 86400) + 1624060800}")
+		else: num = math.floor((args.gamecode - 1624060800) / 86400)
 
 word = words.split("\n")[num]
 print(f"the word was {word.upper()}")
