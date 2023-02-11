@@ -37,7 +37,7 @@ def main(stdscr):
 			curses.endwin()
 			import sys
 			sys.exit()
-		elif key == "\n" and res(f"\n{guess}\n", words) != None:
+		elif key == "\n" and res(f"{guess}\n", words) != None:
 				guesses.append(guess)
 				guess = ""
 		elif key == "263": guess = guess[:-1]
@@ -86,14 +86,14 @@ guess = ""
 guesses = []
 
 with open ("lang.json", "r") as langdict:
-	langdict = json.loads(langdict.read())
+	langdict = json.loads(langdict.read())["languages"][0][f"{args.lang[:2]}"]
 
 if args.daily: 
 	with open(f"lang/en_times", "r") as f:
 		words = f.read()
 	import time
-	num = math.floor((time.time() - 1624060800) / 86400) + langdict["languages"][0]["en_times"]["offset"]
-	args.lang = "en_times"
+	num = math.floor((time.time() - 1624060800) / 86400) + langdict["languages"][0]["en"]["offset"]
+	args.lang = ["languages"][0]["en"]
 else:
 	with open(f"lang/{args.lang}", "r") as f:
 		words = f.read()
@@ -105,9 +105,9 @@ else:
 
 word = words.split("\n")[num]
 print(f"the word was {word.upper()}")
-alphab = langdict["languages"][0][f"{args.lang}"]["writingsystem"]
+alphab = langdict["writingsystem"]
 
-if langdict["languages"][0][f"{args.lang}"]["direction"] == "l": o = 0
-elif langdict["languages"][0][f"{args.lang}"]["direction"] == "r": o = 16
+if langdict["direction"] == "l": o = 0
+elif langdict["direction"] == "r": o = 16
 
 curses.wrapper(main)
