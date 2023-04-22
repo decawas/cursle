@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 
-import math
-import curses
-import argparse
+import argparse, curses, json, hashlib, math
 from re import search as res
-import json
 
 def main(stdscr):
 	global guess
@@ -76,9 +73,9 @@ def render(stdscr):
 	stdscr.addstr(3 * args.tries + 1, mx - math.floor(len(alphab) / 2), alphab.upper())
 
 parser = argparse.ArgumentParser(description="Cursle")
-parser.add_argument("--daily", help="gives you the same word as on New York Times, based on GMT only", action="store_true")
+parser.add_argument("--daily", help="gives you a daily challenge, based on GMT", action="store_true")
 parser.add_argument("--tries", help="set the number of attempts you can make", type=int, default=6)
-parser.add_argument("--gamecode", help="lets you set the word based on an integer so you can send it to a friend without them knowing the word", type=int, default=-1)
+parser.add_argument("--wordcode", help="lets you spread the word to your friends", type=int, default=-1)
 parser.add_argument("--lang", help="select the language", default="en")
 args = parser.parse_args()
 
@@ -86,23 +83,23 @@ guess = ""
 guesses = []
 
 with open ("lang.json", "r") as langdict:
-	if args.daily: 
-		langdict = json.loads(langdict.read())["languages"][0][f"en"]
-		with open(f"lang/en_times", "r") as f:
-			words = f.read()
+	if args.daily:
+		args.lang = "en_times"
+		langdict = json.loads(langdict.read())["languages"]["en"]
 		import time
-		num = math.floor((time.time() - 1624060800) / 86400) + langdict["offset"]
+		args.wordcode = round(time.time())
 	else:
-		langdict = json.loads(langdict.read())["languages"][0][f"{args.lang[:2]}"]
-		with open(f"lang/{args.lang}", "r") as f:
-			words = f.read()
-		if args.gamecode == -1:
+		langdict = json.loads(langdict.read())["languages"][f"{args.lang[:2]}"]
+		if args.wordcode == -1:
 			import random
-			num = random.randint(0, (len(words.split("\n"))) - 1)
-			print(f"the gamecode is {(num * 86400) + 1624060800}")
-		else: num = math.floor((args.gamecode - 1624060800) / 86400)
+			args.wordcode = random.randint(0, 999999999)
+	print(f"the wordcode is {args.wordcode}")
+	m = hashlib.sha512()
+	m.update(bytes(round(args.wordcode / 86400)))
+	word = int(m.hexdigest(), 16)
+with open(f"lang/{args.lang}", "r") as f: words = f.read()
 
-word = words.split("\n")[num]
+word = words.split("\n")[word % len(words.split("\n")) - 1]
 print(f"the word was {word.upper()}")
 alphab = langdict["writingsystem"]
 
