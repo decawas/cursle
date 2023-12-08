@@ -6,9 +6,9 @@ from re import search as res
 class Cursle:
 	def __init__(self):
 		try:
-			with open(f"lang/{args.length}/{args.lang}", "r") as f: words = f.read()[:25000]
+			with open(f"lang/{args.length}/{args.lang}", "r") as f: words = f.read()
 		except FileNotFoundError:
-			with open(f"lang/5/en", "r") as f: words = f.read()[:25000]
+			with open(f"lang/5/en", "r") as f: words = f.read()
 			args.length = 5
 
 		with open("lang.json", "r") as langdict:
@@ -16,13 +16,12 @@ class Cursle:
 		if args.daily:
 			import time
 			args.wordcode = round(time.time())
-		else:
-			if args.wordcode == -1:
-				import random
-				args.wordcode = random.randint(0, 999999999)
+		elif args.wordcode == -1:
+			import random
+			args.wordcode = random.randint(0, 999999999)
 		hashh = hashlib.sha512()
 		hashh.update(bytes(round(args.wordcode / 86400)))
-		word = [words.split("\n")[int(hashh.hexdigest(), 16) % len(words.split("\n")) - 1]]
+		word = [words.split("\n")[:25000][int(hashh.hexdigest(), 16) % len(words.split("\n")[:25000]) - 1]]
 
 		alphab = langdict["writingsystem"]
 
