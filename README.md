@@ -13,7 +13,8 @@ __You can not enter any arguments if you use "python ./cursle.py"__
 --daily - gives you a daily challenge, based on GMT only<br />
 --tries [int] - set the number of attempts you can make<br />
 --wordcode [int] - this is a number that sets what word you get in case you had a cool word that you want to do again or to send to a friend<br />
---lang - lets you enter a language code to use a language other than english, based on ISO-639-1 language codes.  __this argument can not be used with --daily and --daily will take priority__
+--lang - lets you enter a language code to use a language other than english, based on ISO-639-1 language codes.
+--length - {experimental} set how many letters are in the word, currently the only option is 6 letters for english
 
 ## Languages:
 
