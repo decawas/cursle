@@ -52,22 +52,19 @@ def cursesinit(stdscr):
 def main(stdscr):
 	game = Cursle()
 	cursesinit(stdscr)
-	mxo = 0
+	render.renderinit(stdscr, game)
 	while True:
-		mx = math.floor(stdscr.getmaxyx()[1] / 2)
-		if mxo != mx:
+		key = str(stdscr.get_wch())
+
+		if key == "410":
 			try: 
 				render.renderinit(stdscr, game)
 				if len(game.guesses) != 0: render.guessed(stdscr, game)
 				render.guessing(stdscr, game)
-				mxo = mx
 			except curses.error: 
 				stdscr.refresh()
 				stdscr.clear()
 				stdscr.addstr("bad")
-			
-
-		key = str(stdscr.get_wch())
 
 		if key == "409":
 			try: _, x, y, _, _ = curses.getmouse()
