@@ -204,8 +204,11 @@ class render:
 			if i + 1 == len(game.guesses) and game.guesses[-1] == game.word[0]:
 				colour = curses.color_pair(2)
 			elif i + 1 != len(game.guesses) or game.guesses[-1] != game.word[0]:
-				colour = curses.color_pair(0)
-			segments, subsegments = round(stat / maxs * (args.length * 4 - 3)), round((stat / maxs - int(stat / maxs)) * 8)
+				colour = curses.color_pair(0)	
+			try:
+				segments, subsegments = round(stats[i + 2] / maxs * (args.length * 4 - 3)), round((stats[i + 2] / maxs - int(stats[i + 2] / maxs)) * 8)
+			except ZeroDivisionError:
+				segments, subsegments = round(stats[i + 2] / 1 * (args.length * 4 - 3)), round((stats[i + 2] / 1 - int(stats[i + 2] / 1)) * 8)
 
 			screen.addstr(i * 3, maxx - (args.length * 2 - 1), f"╭{br[9]*(args.length * 4 - 3)}╮", colour)
 			screen.addstr(i * 3 + 1, maxx - (args.length * 2 - 1), f"│{br[0]*(args.length * 4 - 3)}│ {stats[i+2]}", colour)
