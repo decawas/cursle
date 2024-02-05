@@ -107,8 +107,8 @@ def main(screen):
 		elif key == "263":
 			game.guess = game.guess[:-1]
 			render.guessing(screen, game, halfx)
-		elif len(game.guess) != args.length and len(key) == 1 and key in game.alphab:
-			game.guess += key
+		elif len(game.guess) != args.length and len(key) == 1 and key.lower() in game.alphab:
+			game.guess += key.lower()
 			render.guessing(screen, game, halfx)
 
 def end(screen, game):
