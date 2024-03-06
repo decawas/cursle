@@ -116,23 +116,21 @@ def end(screen, game):
 		mode = "free"
 	if args.daily:
 		mode = "daily"
-	stats = open(f"{mode}.stats", "r").read().split(",")
+	stats = json.load(open("stats.json", "r"))
 
-	for i in range(len(stats)):
-		stats[i] = int(stats[i])
-	while len(stats) - 2 < args.tries:
-		stats.append(0)
+	while len(stats[mode]["winsbyattempts"]) < args.tries:
+		stats[mode]["winsbyattempts"].append(0)
 
 	if game.guesses == [] or game.guesses[-1] != game.word[0]:
-		stats[1] += 1
+		stats[mode]["losses"] += 1
 	elif game.guesses[-1] == game.word[0]:
-		stats[len(game.guesses) + 1] += 1
-		stats[0] += 1
+		stats[mode]["winsbyattempts"][len(game.guesses) - 1] += 1
+		stats[mode]["wins"] += 1
 	
-	render.end(screen, game, stats)
+	render.end(screen, game, stats[mode])
 
-	with open(f"{mode}.stats", "w") as f:
-		f.write(str(stats)[1:-1])
+	with open(f"stats.json", "w") as f:
+		f.write(json.dumps(stats))
 	
 	while True:
 		key = str(screen.get_wch())
@@ -187,10 +185,10 @@ class render:
 				break
 	
 	def end(screen, game, stats):
-		br = " ▏▎▍▌▋▊▉█─"
+		br = " ▏▎▍▌▋▊▉█"
 		screen.clear()
 		halfx = screen.getmaxyx()[1] // 2
-		maxs = stats[2:]
+		maxs = stats["winsbyattempts"][:]
 		maxs.sort()
 		maxs = maxs[-1]
 		
@@ -200,22 +198,22 @@ class render:
 			elif i + 1 != len(game.guesses) or game.guesses[-1] != game.word[0]:
 				colour = curses.color_pair(0)	
 			try:
-				segments, subsegments = round(stats[i + 2] / maxs * (args.length * 4 - 3)), round((stats[i + 2] / maxs - int(stats[i + 2] / maxs)) * 8)
+				segments, subsegments = round(stats["winsbyattempts"][i] / maxs * (args.length * 4 - 3)), round((stats["winsbyattempts"][i] / maxs - int(stats["winsbyattempts"][i] / maxs)) * 8)
 			except ZeroDivisionError:
-				segments, subsegments = round(stats[i + 2] / 1 * (args.length * 4 - 3)), round((stats[i + 2] / 1 - int(stats[i + 2] / 1)) * 8)
+				segments, subsegments = round(stats["winsbyattempts"][i] / 1 * (args.length * 4 - 3)), round((stats["winsbyattempts"][i] / 1 - int(stats["winsbyattempts"][i] / 1)) * 8)
 
-			screen.addstr(i * 3, halfx - (args.length * 2 - 1), f"╭{br[9]*(args.length * 4 - 3)}╮", colour)
-			screen.addstr(i * 3 + 1, halfx - (args.length * 2 - 1), f"│{br[0]*(args.length * 4 - 3)}│ {stats[i+2]}", colour)
+			screen.addstr(i * 3, halfx - (args.length * 2 - 1), f"╭{'─'*(args.length * 4 - 3)}╮", colour)
+			screen.addstr(i * 3 + 1, halfx - (args.length * 2 - 1), f"│{br[0]*(args.length * 4 - 3)}│ {stats['winsbyattempts'][i]}", colour)
 			if subsegments > 0:
 				screen.addstr(i * 3 + 1, halfx - (args.length * 2 - 2), f"{br[8]*segments}{br[subsegments]}", colour)
 			else:
 				screen.addstr(i * 3 + 1, halfx - (args.length * 2 - 2), f"{br[8]*segments}", colour)
-			screen.addstr(i * 3 + 2, halfx - (args.length * 2 - 1), f"╰{br[9]*(args.length * 4 - 3)}╯", colour)
+			screen.addstr(i * 3 + 2, halfx - (args.length * 2 - 1), f"╰{'─'*(args.length * 4 - 3)}╯", colour)
 
 		try:
-			screen.addstr(3 * args.tries, halfx - 7, f"Wins: {stats[0]}  Losses: {stats[1]}")
+			screen.addstr(3 * args.tries, halfx - 7, f"Wins: {stats['wins']}  Losses: {stats['losses']}")
 		except ZeroDivisionError:
-			screen.addstr(3 * args.tries, halfx - 9, f"Wins: {stats[0]}  Losses: {stats[1]}")
+			screen.addstr(3 * args.tries, halfx - 9, f"Wins: {stats['wins']}  Losses: {stats['losses']}")
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="Cursle")
