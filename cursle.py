@@ -116,7 +116,10 @@ def end(screen, game):
 		mode = "free"
 	if args.daily:
 		mode = "daily"
-	stats = json.load(open("stats.json", "r"))
+	try:
+		stats = json.load(open("stats.json", "r"))
+	except:
+		stats = {"daily": {"wins": 0, "losses": 0, "winsbyattempts": [0, 0, 0, 0, 0, 0]}, "free": {"wins": 0, "losses": 0, "winsbyattempts": [0, 0, 0, 0, 0, 0]}}
 
 	while len(stats[mode]["winsbyattempts"]) < args.tries:
 		stats[mode]["winsbyattempts"].append(0)
